@@ -53,15 +53,15 @@ class MainActivity : AppCompatActivity() {
 
     fun createInitialData() {
         db.gameDao().save(
-            Game("Until Dawn", "decision", "ps4", "good")
+            Game(title= "Until Dawn", category= "decision", plataform = "ps4", review = "good")
         )
 
         db.gameDao().save(
-            Game("Far Cry", "aventura", "ps4", "bugs")
+            Game(title="Far Cry", category = "aventura", plataform = "ps4", review = "bugs")
 
         )
         db.gameDao().save(
-            Game("Elden Ring", "simulacion", "pc", "goty")
+            Game(title="Elden Ring", category = "simulacion", plataform = "pc", review = "goty")
         )
 
 

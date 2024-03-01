@@ -13,7 +13,7 @@ class CreateGameActivity : AppCompatActivity() {
 
     private lateinit var db: AppDatabase
 
-    private var idGameEditar: String? = null
+    private var idGameEditar: Int? = null
 
     enum class Params{
         ID_GAME;
@@ -31,34 +31,49 @@ class CreateGameActivity : AppCompatActivity() {
             )
             .allowMainThreadQueries().build()
 
-        idGameEditar = intent.extras?.getString(Params.ID_GAME.name)
+        idGameEditar = intent.extras?.getInt(Params.ID_GAME.name)
 
         idGameEditar?.let { idGameEditar ->
             binding.aAdirbutton.text="Modificar"
             db.gameDao().findById(idGameEditar)?.let { game ->
-                binding.titulo.setText(game.title.toString())
-                binding.categ.setText((game.category.toString()))
-                binding.plataforma.setText(game.plataform.toString())
-                binding.reseA.setText(game.review.toString())
+                binding.titulo.setText(game.title)
+                binding.categ.setText(game.category)
+                binding.plataforma.setText(game.plataform)
+                binding.reseA.setText(game.review)
             }
 
         }
         binding.aAdirbutton.setOnClickListener{
-            val title = binding.titulo.text.toString()
-            val category = binding.categ.text.toString()
-            val plataform = binding.plataforma.text.toString()
-            val review = binding.reseA.text.toString()
+            val titlee = binding.titulo.text.toString()
+            val categoryy = binding.categ.text.toString()
+            val plataformm = binding.plataforma.text.toString()
+            val revieww = binding.reseA.text.toString()
 
-            val game = Game(
-                title = title,
-                category = category,
-                plataform = plataform,
-                review = review
-            )
+            if(idGameEditar == null) {
+                val juego = Game(
+                    title = titlee,
+                    category = categoryy,
+                    plataform = plataformm,
+                    review = revieww
+                )
 
-            db
-                .gameDao()
-                .save(game)
+                db.gameDao().save(juego)
+
+            }else{
+                val game = Game(
+                    id = idGameEditar!!,
+                    title = titlee,
+                    category = categoryy,
+                    plataform = plataformm,
+                    review = revieww
+                )
+
+                db
+                    .gameDao()
+                    .update(game)
+
+            }
+
 
             finish()
 

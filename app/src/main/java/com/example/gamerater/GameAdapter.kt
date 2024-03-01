@@ -52,7 +52,7 @@ class GameAdapter(
 
         // eliminar
         binding.deleteImg.setOnClickListener{
-            val deletedRows = db.gameDao().delete(game.title)
+            val deletedRows = db.gameDao().delete(game.id)
 
             games = db.gameDao().list()
 
@@ -64,7 +64,7 @@ class GameAdapter(
         //edit
         binding.editimag.setOnClickListener {
         val editGameIntent = Intent(context, CreateGameActivity::class.java)
-        editGameIntent.putExtra(CreateGameActivity.Params.ID_GAME.name, game.title)
+        editGameIntent.putExtra(CreateGameActivity.Params.ID_GAME.name, game.id)
 
          context.startActivity(editGameIntent)
 
